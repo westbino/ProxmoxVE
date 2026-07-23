@@ -1103,25 +1103,12 @@ verify_repo_available() {
   local cache_key="${repo_url}|${suite}"
   local cache_ttl=300 # 5 minutes
 
-  # Check cache first (avoid repeated HTTP requests)
-  if [[ -n "${_REPO_CACHE[$cache_key]:-}" ]]; then
-    local cached_time cached_result
-    cached_time=$(echo "${_REPO_CACHE[$cache_key]}" | cut -d'|' -f1)
-    cached_result=$(echo "${_REPO_CACHE[$cache_key]}" | cut -d'|' -f2)
-    if (($(date +%s) - cached_time < cache_ttl)); then
-      [[ "$cached_result" == "1" ]] && return 0 || return 1
-    fi
-  fi
-
   # Perform actual check with short timeout
   local result=1
   if curl -fsSL --max-time 5 --connect-timeout 60 "${repo_url}/dists/${suite}/Release" &>/dev/null; then
     result=0
   fi
-
-  # Cache the result
-  _REPO_CACHE[$cache_key]="$(date +%s)|$result"
-  echo %result
+  msg_info "repo ${repo_url} got ${result}"
 
   return $result
 }
