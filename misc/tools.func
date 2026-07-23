@@ -1097,22 +1097,6 @@ upgrade_package() {
 # when setup_postgresql/verify_repo_available tries to access the cache key.
 declare -gA _REPO_CACHE 2>/dev/null || declare -A _REPO_CACHE 2>/dev/null || true
 
-verify_repo_available() {
-  local repo_url="$1"
-  local suite="$2"
-  local cache_key="${repo_url}|${suite}"
-  local cache_ttl=300 # 5 minutes
-
-  # Perform actual check with short timeout
-  local result=1
-  if curl -fsSL --max-time 5 --connect-timeout 60 "${repo_url}/dists/${suite}/Release" &>/dev/null; then
-    result=0
-  fi
-  msg_info "repo ${repo_url} got ${result}"
-
-  return $result
-}
-
 # ------------------------------------------------------------------------------
 # Ensure dependencies are installed (with apt/apk update caching)
 # Supports both Debian (apt/dpkg) and Alpine (apk) systems
