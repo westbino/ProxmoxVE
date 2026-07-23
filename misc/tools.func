@@ -1121,6 +1121,7 @@ verify_repo_available() {
 
   # Cache the result
   _REPO_CACHE[$cache_key]="$(date +%s)|$result"
+  echo %result
 
   return $result
 }
