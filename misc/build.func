@@ -3913,7 +3913,7 @@ check_container_os_guard() {
 # ------------------------------------------------------------------------------
 
 start() {
-  source <(curl -fsSL https://raw.githubusercontent.com/community-scripts/ProxmoxVE/main/misc/tools.func)
+  source <(curl -fsSL https://raw.githubusercontent.com/westbino/ProxmoxVE/refs/heads/main/misc/tools.func)
   if command -v pveversion >/dev/null 2>&1; then
     runtime_script_status_guard install || return 0
     install_script || return 0
