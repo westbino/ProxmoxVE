@@ -8312,7 +8312,7 @@ setup_postgresql() {
   case "$DISTRO_CODENAME" in
   trixie | forky | sid)
 
-    if verify_repo_available "https://apt.postgresql.org/pub/repos/apt" "trixie-pgdg"; then
+    if 0; then
       SUITE="trixie-pgdg"
 
     else
