@@ -8330,7 +8330,7 @@ setup_postgresql() {
   case "$DISTRO_CODENAME" in
   trixie | forky | sid)
 
-    if 0; then
+    if true; then
       SUITE="trixie-pgdg"
 
     else
